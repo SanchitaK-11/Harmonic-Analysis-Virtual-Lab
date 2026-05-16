@@ -1,0 +1,973 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Fourier Series MCQ Quiz</title>
+
+<style>
+
+:root{
+    --primary:#2b3a4a;
+    --success:#28a745;
+    --warning:#fd7e14;
+    --unvisited:#6f42c1;
+    --danger:#dc3545;
+    --bg:#f4f6f9;
+}
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+    background:var(--bg);
+    padding:20px;
+    color:#333;
+}
+
+.quiz-container{
+    display:grid;
+    grid-template-columns:1fr 320px;
+    gap:25px;
+    max-width:1200px;
+    margin:auto;
+}
+
+@media(max-width:900px){
+    .quiz-container{
+        grid-template-columns:1fr;
+    }
+}
+
+.main-panel{
+    background:white;
+    padding:30px;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    min-height:500px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+}
+
+h2{
+    margin-top:10px;
+    color:var(--primary);
+    border-bottom:2px solid #eef2f5;
+    padding-bottom:10px;
+    line-height:1.5;
+}
+
+.options-list{
+    margin-top:25px;
+}
+
+.option-card{
+    display:flex;
+    align-items:center;
+    background:#f8f9fa;
+    padding:16px;
+    margin-bottom:14px;
+    border-radius:10px;
+    border:2px solid #dee2e6;
+    cursor:pointer;
+    transition:0.2s;
+}
+
+.option-card:hover{
+    background:#f1f3f5;
+    border-color:#ced4da;
+}
+
+.option-card.selected{
+    border-color:#007bff;
+    background:#e7f5ff;
+}
+
+.option-card input{
+    margin-right:15px;
+    transform:scale(1.3);
+}
+
+.option-card label{
+    width:100%;
+    cursor:pointer;
+    font-weight:500;
+}
+
+.nav-actions{
+    display:flex;
+    justify-content:space-between;
+    margin-top:20px;
+    padding-top:15px;
+    border-top:2px solid #eef2f5;
+}
+
+.btn{
+    padding:12px 24px;
+    border:none;
+    border-radius:6px;
+    font-size:0.95rem;
+    font-weight:600;
+    cursor:pointer;
+}
+
+.btn-prev{
+    background:#6c757d;
+    color:white;
+}
+
+.btn-next{
+    background:#007bff;
+    color:white;
+}
+
+.btn-submit{
+    width:100%;
+    background:var(--success);
+    color:white;
+    margin-top:15px;
+}
+
+.btn:disabled{
+    opacity:0.7;
+    cursor:not-allowed;
+}
+
+.sidebar{
+    background:white;
+    padding:24px;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+    height:fit-content;
+    position:sticky;
+    top:20px;
+}
+
+.timer-display{
+    font-size:2.2rem;
+    font-weight:700;
+    text-align:center;
+    padding:12px;
+    border-radius:8px;
+    background:#e9ecef;
+    margin-bottom:25px;
+}
+
+.timer-danger{
+    background:var(--danger);
+    color:white;
+    animation:flash 1s infinite alternate;
+}
+
+@keyframes flash{
+    from{opacity:1;}
+    to{opacity:0.8;}
+}
+
+.status-grid{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:12px;
+    margin-bottom:25px;
+}
+
+.q-circle{
+    border:none;
+    color:white;
+    padding:12px 0;
+    border-radius:8px;
+    font-weight:bold;
+    cursor:pointer;
+    box-shadow:0 2px 4px rgba(0,0,0,0.1);
+}
+
+.state-unvisited{
+    background:var(--unvisited);
+}
+
+.state-seen{
+    background:var(--warning);
+}
+
+.state-attempted{
+    background:var(--success);
+}
+
+.guide-legend{
+    border-top:1px solid #dee2e6;
+    padding-top:15px;
+    font-size:0.9rem;
+}
+
+.legend-row{
+    display:flex;
+    align-items:center;
+    margin-bottom:8px;
+}
+
+.legend-dot{
+    width:16px;
+    height:16px;
+    border-radius:4px;
+    margin-right:12px;
+}
+
+.results-view{
+    text-align:center;
+    padding:50px 20px;
+    grid-column:span 2;
+    background:white;
+    border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.08);
+}
+
+.score-num{
+    font-size:4rem;
+    font-weight:800;
+    color:var(--success);
+    margin:20px 0;
+}
+
+.solution-box{
+    margin-top:20px;
+    background:#f8f9fa;
+    padding:15px;
+    border-left:5px solid #007bff;
+    border-radius:8px;
+    font-size:0.95rem;
+    text-align:left;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="quiz-container" id="quiz-block">
+
+    <div class="main-panel" id="question-card-frame"></div>
+
+    <div class="sidebar">
+
+        <div class="timer-display" id="clock-countdown">20:00</div>
+
+        <h3 style="margin-bottom:15px;color:var(--primary);">
+            Question Progress
+        </h3>
+
+        <div class="status-grid" id="navigation-map-grid"></div>
+
+        <div class="guide-legend">
+
+            <div class="legend-row">
+                <div class="legend-dot state-unvisited"></div>
+                Not visited
+            </div>
+
+            <div class="legend-row">
+                <div class="legend-dot state-seen"></div>
+                Seen
+            </div>
+
+            <div class="legend-row">
+                <div class="legend-dot state-attempted"></div>
+                Attempted
+            </div>
+
+        </div>
+
+        <button class="btn btn-submit" onclick="finishQuiz()">
+            Submit Quiz
+        </button>
+
+    </div>
+
+</div>
+
+<script>
+
+
+
+const quizDatabase = [
+
+
+{
+    id: 1,
+    title: "Question 1",
+    prompt: "What is the Fourier series used for?",
+    choices: [
+        "Solving matrices",
+        "Representing periodic functions",
+        "Finding roots",
+        "Integration only"
+    ],
+    answerIdx: 1,
+},
+
+{
+    id: 2,
+    title: "Question 2",
+    prompt: "Which function is periodic?",
+    choices: [
+        "x²",
+        "sin x",
+        "log x",
+        "e^x"
+    ],
+    answerIdx: 1,
+    
+},
+
+{
+    id: 3,
+    title: "Question 3",
+    prompt: "Cosine functions are",
+    choices: [
+        "Odd",
+        "Even",
+        "Neither",
+        "Complex"
+    ],
+    answerIdx: 1,
+    
+},
+
+{
+    id: 4,
+    title: "Question 4",
+    prompt: "Sine functions are",
+    choices: [
+        "Odd",
+        "Even",
+        "Neither",
+        "Constant"
+    ],
+    answerIdx: 0,
+    
+},
+
+{
+    id: 5,
+    title: "Question 5",
+    prompt: "Which transform converts signal into frequency domain?",
+    choices: [
+        "Fourier Transform",
+        "Laplace",
+        "Taylor",
+        "None"
+    ],
+    answerIdx: 0,
+   
+},
+
+{
+    id: 6,
+    title: "Question 6",
+    prompt: "Who developed Fourier series?",
+    choices: [
+        "Newton",
+        "Euler",
+        "Fourier",
+        "Gauss"
+    ],
+    answerIdx: 2,
+    
+},
+
+
+{
+    id: 8,
+    title: "Question 8",
+    prompt: "Which series represents even functions?",
+    choices: [
+        "Sine",
+        "Cosine",
+        "Power",
+        "None"
+    ],
+    answerIdx: 1,
+    
+},
+
+{
+    id: 9,
+    title: "Question 9",
+    prompt: "Harmonics are",
+    choices: [
+        "Noise",
+        "Multiples of fundamental frequency",
+        "Constants",
+        "Random waves"
+    ],
+    answerIdx: 1,
+    
+},
+
+{
+    id: 11,
+    title: "Question 11",
+    prompt: "Fundamental period of cos 2x is",
+    choices: [
+        "π",
+        "2π",
+        "π/2",
+        "4π"
+    ],
+    answerIdx: 0,
+    
+},
+
+{
+    id: 12,
+    title: "Question 12",
+    prompt: "Fundamental period of tan 3x is",
+    choices: [
+        "π",
+        "π/2",
+        "π/3",
+        "2π"
+    ],
+    answerIdx: 2,
+   
+},
+
+{
+    id: 13,
+    title: "Question 13",
+    prompt: "An even function satisfies",
+    choices: [
+        "f(-x)=f(x)",
+        "f(-x)=-f(x)",
+        "f(x)=0",
+        "None"
+    ],
+    answerIdx: 0,
+    
+},
+
+{
+    id: 14,
+    title: "Question 14",
+    prompt: "An odd function satisfies",
+    choices: [
+        "f(-x)=f(x)",
+        "f(-x)=-f(x)",
+        "f(x)=1",
+        "None"
+    ],
+    answerIdx: 1,
+},
+
+{
+    id: 15,
+    title: "Question 15",
+    prompt: "Which is an odd function?",
+    choices: [
+        "sin x",
+        "cos x",
+        "x²",
+        "e^x"
+    ],
+    answerIdx: 0,
+   
+},
+
+{
+    id: 16,
+    title: "Question 16",
+    prompt: "Which is an even function?",
+    choices: [
+        "sin x",
+        "tan x",
+        "cos x",
+        "x"
+    ],
+    answerIdx: 2,
+   
+},
+
+{
+    id: 17,
+    title: "Question 17",
+    prompt: "Fourier series contains",
+    choices: [
+        "Only sine",
+        "Only cosine",
+        "Sine and cosine",
+        "Matrices"
+    ],
+    answerIdx: 2,
+   
+},
+
+{
+    id: 18,
+    title: "Question 18",
+    prompt: "Coefficient of sine term is",
+    choices: [
+        "an",
+        "bn",
+        "cn",
+        "dn"
+    ],
+    answerIdx: 1,
+    
+},
+
+{
+    id: 19,
+    title: "Question 19",
+    prompt: "Coefficient of cosine term is",
+    choices: [
+        "an",
+        "bn",
+        "cn",
+        "dn"
+    ],
+    answerIdx: 0,
+   
+},
+
+{
+    id: 20,
+    title: "Question 20",
+    prompt: "A function f(x) is said to be periodic of period T if",
+    choices: [
+        "f(x + T) = f(x) for all x",
+        "f(x + T) = f(T) for all x",
+        "f(-x) = f(x) for all x",
+        "f(-x) = -f(x) for all x"
+    ],
+    answerIdx: 0,
+   
+},{
+    id: 21,
+    title: "Question 21",
+    prompt: "A function f(x) is said to be periodic of period T if",
+    choices: [
+        "f(x + T) = f(x) for all x",
+        "f(x + T) = f(T) for all x",
+        "f(-x) = f(x) for all x",
+        "f(-x) = -f(x) for all x"
+    ],
+    answerIdx: 0,
+},
+
+{
+    id: 22,
+    title: "Question 22",
+    prompt: "If f(x + nT) = f(x) then the fundamental period of f(x) is",
+    choices: [
+        "2T",
+        "T/2",
+        "T",
+        "3T"
+    ],
+    answerIdx: 2,
+},
+
+{
+    id: 23,
+    title: "Question 23",
+    prompt: "If f(x) has period T then f(ax) has fundamental period",
+    choices: [
+        "T",
+        "T/a",
+        "aT",
+        "π"
+    ],
+    answerIdx: 1,
+},
+
+{
+    id: 24,
+    title: "Question 24",
+    prompt: "Fundamental period of sin 2x is",
+    choices: [
+        "π/4",
+        "π/2",
+        "2π",
+        "π"
+    ],
+    answerIdx: 3,
+},
+
+{
+    id: 25,
+    title: "Question 25",
+    prompt: "Fundamental period of cos 2x is",
+    choices: [
+        "π/4",
+        "π/2",
+        "π",
+        "2π"
+    ],
+    answerIdx: 2,
+},
+
+{
+    id: 26,
+    title: "Question 26",
+    prompt: "Fundamental period of tan 3x is",
+    choices: [
+        "π/2",
+        "π/3",
+        "π",
+        "π/4"
+    ],
+    answerIdx: 1,
+},
+
+{
+    id: 27,
+    title: "Question 27",
+    prompt: "A function f(x) is said to be even if",
+    choices: [
+        "f(-x)=f(x)",
+        "f(-x)=-f(x)",
+        "f(x+2π)=f(x)",
+        "f(-x)=[f(x)]²"
+    ],
+    answerIdx: 0,
+},
+
+{
+    id: 28,
+    title: "Question 28",
+    prompt: "A function f(x) is said to be odd if",
+    choices: [
+        "f(-x)=f(x)",
+        "f(-x)=-f(x)",
+        "f(x+2π)=f(x)",
+        "f(-x)=[f(x)]²"
+    ],
+    answerIdx: 1,
+},
+
+{
+    id: 31,
+    title: "Question 31",
+    prompt: "Which of the following is neither even nor odd?",
+    choices: [
+        "x sin x",
+        "x²",
+        "e^-x",
+        "x cos x"
+    ],
+    answerIdx: 2,
+},
+
+{
+    id: 32,
+    title: "Question 32",
+    prompt: "In Harmonic analysis for a function with period 2π, the term a₁ cos x + b₁ sin x is called",
+    choices: [
+        "second harmonic",
+        "first harmonic",
+        "third harmonic",
+        "none of these"
+    ],
+    answerIdx: 1,
+},
+
+{
+    id: 33,
+    title: "Question 33",
+    prompt: "Amplitude of first harmonic a₁ cos x + b₁ sin x is",
+    choices: [
+        "√(a₁² - b₁²)",
+        "a₁² + b₁²",
+        "√(a₁² + b₁²)",
+        "(a₁² + b₁²)²"
+    ],
+    answerIdx: 2,
+},
+
+
+];
+
+let currentIdx = 0;
+
+let selectedAnswers = new Array(quizDatabase.length).fill(null);
+
+let viewingStates = new Array(quizDatabase.length).fill('unvisited');
+
+let countdownSeconds = 20 * 60;
+
+function buildNavigationGrid(){
+
+    const grid = document.getElementById('navigation-map-grid');
+
+    grid.innerHTML = '';
+
+    quizDatabase.forEach((item,index)=>{
+
+        const btn = document.createElement('button');
+
+        btn.className = 'q-circle state-unvisited';
+
+        btn.innerText = index + 1;
+
+        btn.id = `q-btn-${index}`;
+
+        btn.onclick = ()=>loadQuestion(index);
+
+        grid.appendChild(btn);
+
+    });
+
+}
+
+function refreshNavBlockColor(index){
+
+    const btn = document.getElementById(`q-btn-${index}`);
+
+    if(!btn) return;
+
+    btn.className = 'q-circle';
+
+    if(selectedAnswers[index] !== null){
+
+        btn.classList.add('state-attempted');
+
+        viewingStates[index] = 'attempted';
+
+    }
+
+    else if(viewingStates[index] === 'seen'){
+
+        btn.classList.add('state-seen');
+
+    }
+
+    else{
+
+        btn.classList.add('state-unvisited');
+
+    }
+
+}
+
+function loadQuestion(index){
+
+    currentIdx = index;
+
+    if(viewingStates[index] === 'unvisited'){
+        viewingStates[index] = 'seen';
+    }
+
+    refreshNavBlockColor(index);
+
+    const q = quizDatabase[index];
+
+    const card = document.getElementById('question-card-frame');
+
+    let optionsHTML = '';
+
+    q.choices.forEach((opt,optIndex)=>{
+
+        const checked = selectedAnswers[index] === optIndex;
+
+        optionsHTML += `
+
+        <div class="option-card ${checked ? 'selected':''}"
+             onclick="recordUserSelection(${optIndex})">
+
+            <input type="radio"
+                   ${checked ? 'checked':''}>
+
+            <label>${opt}</label>
+
+        </div>
+
+        `;
+
+    });
+
+    card.innerHTML = `
+
+    <div>
+
+        <span style="color:#6c757d;font-weight:bold;">
+            ${q.title}
+        </span>
+
+        <h2>${q.prompt}</h2>
+
+        <div class="options-list">
+
+            ${optionsHTML}
+
+        </div>
+
+    </div>
+
+    <div class="nav-actions">
+
+        <button class="btn btn-prev"
+        onclick="shiftFocus(-1)"
+        ${index===0?'disabled':''}>
+
+        Previous
+
+        </button>
+
+        <button class="btn btn-next"
+        onclick="shiftFocus(1)"
+        ${index===quizDatabase.length-1?'disabled':''}>
+
+        Next
+
+        </button>
+
+    </div>
+
+    `;
+
+}
+
+function recordUserSelection(choiceIndex){
+
+    selectedAnswers[currentIdx] = choiceIndex;
+
+    refreshNavBlockColor(currentIdx);
+
+    loadQuestion(currentIdx);
+
+}
+
+function shiftFocus(step){
+
+    let newIndex = currentIdx + step;
+
+    if(newIndex >=0 && newIndex < quizDatabase.length){
+
+        loadQuestion(newIndex);
+
+    }
+
+}
+
+const timerEngine = setInterval(()=>{
+
+    if(countdownSeconds <= 0){
+
+        clearInterval(timerEngine);
+
+        finishQuiz();
+
+        return;
+
+    }
+
+    countdownSeconds--;
+
+    const min = Math.floor(countdownSeconds/60);
+
+    const sec = countdownSeconds%60;
+
+    const timer = document.getElementById('clock-countdown');
+
+    timer.innerText =
+    `${String(min).padStart(2,'0')}:${String(sec).padStart(2,'0')}`;
+
+    if(countdownSeconds <= 300){
+
+        timer.classList.add('timer-danger');
+
+    }
+
+},1000);
+
+
+function finishQuiz(){
+
+    clearInterval(timerEngine);
+
+    let score = 0;
+
+    let solutionHTML = '';
+
+    quizDatabase.forEach((q,index)=>{
+
+        const selected =
+        selectedAnswers[index] !== null
+        ? q.choices[selectedAnswers[index]]
+        : "Not Attempted";
+
+        const correct =
+        selectedAnswers[index] === q.answerIdx;
+
+        if(correct) score++;
+
+        solutionHTML += `
+
+        <div class="solution-box">
+
+            <strong>Q${index+1}:</strong>
+            ${q.prompt}<br><br>
+
+            <strong>Your Answer:</strong>
+            ${selected}<br>
+
+            <strong>Correct Answer:</strong>
+            ${q.choices[q.answerIdx]}
+
+        </div>
+
+        `;
+
+    });
+
+    document.getElementById('quiz-block').innerHTML = `
+
+    <div class="results-view">
+
+        <h1 style="color:var(--primary);">
+            Quiz Finished
+        </h1>
+
+        <div class="score-num">
+            ${score} / ${quizDatabase.length}
+        </div>
+
+        <p style="font-size:1.2rem;margin-bottom:20px;">
+
+            Percentage :
+            ${Math.round((score/quizDatabase.length)*100)}%
+
+        </p>
+
+        ${solutionHTML}
+
+        <button class="btn btn-next"
+        style="margin-top:30px;"
+        onclick="window.location.reload()">
+
+        Try Again
+
+        </button>
+
+    </div>
+
+    `; }
+
+
+
+
+
+buildNavigationGrid();
+
+loadQuestion(0);
+
+</script>
+
+</body>
+</html>

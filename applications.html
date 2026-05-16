@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Real Life Applications</title>
+
+    <style>
+        /* --- YOUR ORIGINAL STYLES --- */
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f4f6f9;
+            color:#511669;
+            line-height:1.0;
+        }
+
+        .navbar{
+            background:#330730;
+            color:white;
+            padding:18px 40px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .navbar h1{
+            font-size:28px;
+        }
+
+        .nav-links a{
+            color:white;
+            text-decoration:none;
+            margin-left:20px;
+        }
+
+        .nav-links a:hover{
+            color:orange;
+        }
+
+        .hero{
+            background:linear-gradient(rgba(63, 17, 92, 0.5), rgba(110, 26, 114, 0.5)),
+            url('3499066.jpg');
+            background-size:cover;
+            background-position:center;
+            height:360px;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+            color:white;
+        }
+
+        .hero h2{
+            font-size:50px;
+        }
+
+        .hero p{
+            margin-top:10px;
+            font-size:20px;
+        }
+
+        .container{
+            width:90%;
+            max-width:1200px;
+            margin:40px auto;
+        }
+
+        .card{
+            background:white;
+            padding:30px;
+            margin-bottom:25px;
+            border-radius:12px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.1);
+            transition:0.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-5px);
+        }
+
+        .card h3{
+            color:#9e33c5;
+            margin-bottom:15px;
+            font-size:28px;
+        }
+
+        .card p{
+            font-size:24px;
+        }
+
+        .signal-img, .sound-img, .Electrical-img, .Image-img, .Communication-img, .Data-img {
+            width:55%;
+            height:auto;
+            border-radius:10px;
+            display:block;
+            margin:15px auto;
+        }
+
+        footer{
+            background:#111;
+            color:white;
+            text-align:center;
+            padding:20px;
+            margin-top:40px;
+            margin-bottom: 80px; /* Space so fixed buttons don't block text */
+        }
+
+        @media(max-width:768px){
+            .hero h2{ font-size:35px; }
+            .navbar{ flex-direction:column; }
+            .nav-links{ margin-top:10px; }
+            .nav-btn { padding: 10px 20px; font-size: 14px; }
+        }
+
+        /* --- NEW NAVIGATION BUTTON STYLES --- */
+        .nav-btn {
+            position: fixed;   /* Sticks to the corners */
+            bottom: 25px;      /* Distance from bottom */
+            padding: 15px 35px;
+            font-size: 18px;
+            font-weight: bold;
+            color: white;
+            border: none;
+            border-radius: 50px; /* Pill shape */
+            cursor: pointer;
+            z-index: 9999;     /* Keeps buttons on top of everything */
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            transition: all 0.3s ease;
+        }
+
+        #prevBtn {
+            left: 25px;        /* Bottom Left */
+            background-color:  #9e33c5; 
+        }
+
+        #nextBtn {
+            right: 25px;       /* Bottom Right */
+            background-color: #9e33c5; 
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+        <h1>Harmonic Analysis</h1>
+        <div class="nav-links">
+            <a href="dashboard.html">Home</a>
+            <a href="examples.html">Examples</a>
+            <a href="formulas.html">Concepts</a>
+            <a href="quiz.html">Quiz</a>
+        </div>
+    </div>
+
+    <!-- Hero -->
+    <div class="hero">
+        <div>
+            <h2>Real Life Applications</h2>
+            <p>Applications of Harmonic Analysis in Science & Technology</p>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Signal Processing -->
+        <div class="card">
+            <h3>1. Signal Processing</h3>
+            <img src="Digital Processing...png" class="signal-img" alt="Digital Processing">
+            <p><br>Harmonic analysis is used to break complex signals into simple sine and cosine waves. It helps in audio processing, mobile communication, radar systems and noise reduction.</p>
+        </div>
+
+        <!-- Sound Engineering -->
+        <div class="card">
+            <h3>2. Sound & Music Engineering</h3>
+            <img src="sound.png" class="sound-img" alt="Sound Processing">
+            <p><br>Music signals contain multiple harmonics. Harmonic analysis helps identify frequencies, improve sound quality and remove unwanted noise in recordings.</p>
+        </div>
+
+        <!-- Electrical Engineering -->
+        <div class="card">
+            <h3>3. Electrical Engineering</h3>
+            <img src="Electrical.png" class="Electrical-img" alt="Electrical Engineering">
+            <p><br>In AC circuits, harmonic analysis helps study voltage and current waveforms. Engineers use it to reduce harmonic distortion in power systems.</p>
+        </div>
+
+        <!-- Image Processing -->
+        <div class="card">
+            <h3>4. Image Processing</h3>
+            <img src="imagepro.png" class="Image-img" alt="Image Processing">
+            <p><br>Harmonic analysis is used in image compression, edge detection and filtering techniques. It plays an important role in medical imaging and AI vision systems.</p>
+        </div>
+
+        <!-- Communication -->
+        <div class="card">
+            <h3>5. Communication Systems</h3>
+            <img src="Communication.png" class="Communication-img" alt="Communication Systems">
+            <p><br>Wireless communication systems use Fourier and harmonic analysis for signal transmission, modulation and frequency analysis.</p>
+        </div>
+
+        <!-- Data Science -->
+        <div class="card">
+            <h3>6. Data Science & AI</h3>
+            <img src="Time Series..png" class="Data-img" alt="Data Science & AI">
+            <p><br>Harmonic analysis is used in time series analysis, pattern recognition and machine learning applications to identify repeating patterns in data.</p>
+        </div>
+    </div>
+
+    <!-- FIXED NAVIGATION BUTTONS -->
+    <button id="prevBtn" class="nav-btn" onclick="window.location.href='examples.html'">← Previous</button>
+    <button id="nextBtn" class="nav-btn" onclick="window.location.href='quiz.html'">Next →</button>
+
+    
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Harmonic Analysis Learning Platform</p>
+    </footer> 
+
+</body>
+</html>

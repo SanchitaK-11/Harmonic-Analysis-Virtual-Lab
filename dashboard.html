@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Harmonic Analysis Dashboard</title>
+
+<!-- Google Font -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="dashboard.css">
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+    <div class="logo">Harmonic Lab</div>
+
+    <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#modules">Modules</a></li>
+        <li><a href="#quiz">Quiz</a></li>
+        <li><a href="#footer">Contact</a></li>
+        <li><button onclick="logout()">Logout</button></li>
+    </ul>
+</nav>
+
+<!-- HERO SECTION -->
+<header class="hero">
+    <div class="overlay"></div>
+
+    <div class="hero-content">
+        <h1 class="animated-text">Welcome To Harmonic Analysis</h1>
+        <p>Explore all modules</p>
+    </div>
+</header>
+
+<!-- CARDS SECTION -->
+<section class="cards-section" id="modules">
+
+    <div class="card">
+        <div class="icon">📘</div>
+        <h3>Concept & Formulas</h3>
+        <p>Understand mathematical foundations and formulas.</p>
+        <button onclick="openPage('formulas.html')">Explore</button>
+    </div>
+
+    <div class="card">
+        <div class="icon">🧮</div>
+        <h3>Solved Examples</h3>
+        <p>Step-by-step solved numerical problems.</p>
+        <button onclick="openPage('examples.html')">Explore</button>
+    </div>
+
+    <div class="card">
+        <div class="icon">🌍</div>
+        <h3>Applications</h3>
+        <p>Real-world use of harmonic analysis.</p>
+        <button onclick="openPage('applications.html')">Explore</button>
+    </div>
+
+    <div class="card">
+        <div class="icon">📝</div>
+        <h3>Quiz</h3>
+        <p>Test your knowledge interactively.</p>
+        <button onclick="openPage('quiz.html')">Start</button>
+    </div>
+
+</section>
+
+<!-- FOOTER -->
+<footer id="footer">
+    <p>© 2026 Harmonic Analysis Virtual Lab | Designed for Students</p>
+</footer>
+
+<script src="dashboard.js"></script>
+</body>
+</html>

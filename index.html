@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Harmonic Analysis Lab - V</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    font-family:Arial, sans-serif;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(to right,#020024,#090979,#000428);
+    position:relative;
+}
+
+/* Continuous Harmonic Waves */
+
+.wave{
+    position:absolute;
+    width:300%;
+    height:250px;
+    background-repeat:repeat-x;
+    opacity:0.35;
+    z-index:1;
+}
+
+/* Upper Sin Wave */
+
+.wave1{
+    top:18%;
+
+    background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2400' height='250' viewBox='0 0 2400 250'%3E%3Cpath d='M0 125 C60 20 140 20 200 125 S340 230 400 125 S540 20 600 125 S740 230 800 125 S940 20 1000 125 S1140 230 1200 125 S1340 20 1400 125 S1540 230 1600 125 S1740 20 1800 125 S1940 230 2000 125 S2140 20 2200 125 S2340 230 2400 125' stroke='%2300ffff' stroke-width='6' fill='none'/%3E%3C/svg%3E");
+
+    animation:moveWave 10s linear infinite;
+}
+
+/* Lower Cos Wave */
+
+.wave2{
+    top:42%;
+
+    background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='2400' height='250' viewBox='0 0 2400 250'%3E%3Cpath d='M0 125 C60 230 140 230 200 125 S340 20 400 125 S540 230 600 125 S740 20 800 125 S940 230 1000 125 S1140 20 1200 125 S1340 230 1400 125 S1540 20 1600 125 S1740 230 1800 125 S1940 20 2000 125 S2140 230 2200 125 S2340 20 2400 125' stroke='%23ff00ff' stroke-width='6' fill='none'/%3E%3C/svg%3E");
+
+    animation:moveWaveReverse 14s linear infinite;
+    opacity:0.28;
+}
+
+/* Wave Animation */
+
+@keyframes moveWave{
+
+    from{
+        transform:translateX(0);
+    }
+
+    to{
+        transform:translateX(-1200px);
+    }
+}
+
+@keyframes moveWaveReverse{
+
+    from{
+        transform:translateX(-1200px);
+    }
+
+    to{
+        transform:translateX(0);
+    }
+}
+
+/* Floating Harmonic Formulas */
+
+.formula{
+    position:absolute;
+    color:rgba(255,255,255,0.28);
+    font-size:22px;
+    font-weight:bold;
+    white-space:nowrap;
+    animation:floatText 8s ease-in-out infinite;
+}
+
+/* Formula Positions */
+
+.f1{
+    top:8%;
+    left:5%;
+}
+
+.f2{
+    top:22%;
+    right:8%;
+}
+
+.f3{
+    bottom:24%;
+    left:8%;
+}
+
+.f4{
+    bottom:14%;
+    right:6%;
+}
+
+.f5{
+    top:58%;
+    left:8%;
+}
+
+.f6{
+    top:68%;
+    right:10%;
+}
+
+.f7{
+    top:35%;
+    left:15%;
+}
+
+.f8{
+    top:48%;
+    right:6%;
+}
+
+.f9{
+    bottom:8%;
+    right:38%;
+}
+
+/* Formula Oscillation */
+
+@keyframes floatText{
+
+    0%{
+        transform:translateX(0px);
+    }
+
+    25%{
+        transform:translateX(20px);
+    }
+
+    50%{
+        transform:translateX(0px);
+    }
+
+    75%{
+        transform:translateX(-20px);
+    }
+
+    100%{
+        transform:translateX(0px);
+    }
+}
+
+/* Main Section */
+
+.main-box{
+    position:relative;
+    z-index:5;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+/* Welcome Heading */
+
+h1{
+    color:white;
+    font-size:60px;
+    margin-bottom:10px;
+    font-weight:bold;
+    font-family:'Segoe UI', sans-serif;
+    text-shadow:0 0 5px rgba(255,255,255,0.7);
+}
+
+/* Decorative Line */
+
+.welcome-line{
+    color:white;
+    font-size:28px;
+    margin-bottom:22px;
+    letter-spacing:5px;
+    text-shadow:0 0 10px white;
+}
+
+/* Login Container */
+
+.container{
+    width:450px;
+    padding:35px;
+    border-radius:25px;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,0.2);
+    box-shadow:0 10px 35px rgba(0,0,0,0.6);
+    text-align:center;
+}
+
+/* Topic */
+
+h2{
+    color:#00e5ff;
+    font-size:28px;
+    margin-bottom:25px;
+}
+
+/* Inputs */
+
+input{
+    width:100%;
+    padding:14px;
+    margin:12px 0;
+    border:none;
+    border-radius:12px;
+    font-size:16px;
+    outline:none;
+    background:rgba(255,255,255,0.9);
+}
+
+/* Login Button */
+
+button{
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    border:none;
+    border-radius:12px;
+    background:linear-gradient(to right,#8e2de2,#4a00e0);
+    color:white;
+    font-size:18px;
+    cursor:pointer;
+    transition:0.3s;
+    font-weight:bold;
+}
+
+button:hover{
+    transform:scale(1.05);
+    box-shadow:0 0 20px #8e2de2;
+}
+
+/* Login Message */
+
+#message{
+    margin-top:18px;
+    color:#00ff99;
+    font-size:18px;
+    font-weight:bold;
+}
+
+/* Footer */
+
+.footer{
+    margin-top:20px;
+    color:white;
+    font-size:15px;
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- Harmonic Waves -->
+
+<div class="wave wave1"></div>
+<div class="wave wave2"></div>
+
+<!-- Floating Harmonic Analysis Formulas -->
+
+<div class="formula f1">
+    Fourier Series:
+    f(x)= a₀/2 + Σ(an cos(nx) + bn sin(nx))
+</div>
+
+<div class="formula f2">
+    an = (2/N) Σ(y cos(nπx/L))
+</div>
+
+<div class="formula f3">
+    bn = (2/N) Σ(y sin(nπx/L))
+</div>
+
+<div class="formula f4">
+    a₀ = (2/N) Σy
+</div>
+
+<div class="formula f5">
+    Harmonic Amplitude:
+    Amp = √(an² + bn²)
+</div>
+
+<div class="formula f6">
+    Phase Angle:
+    θ = tan⁻¹(bn/an)
+</div>
+
+<div class="formula f7">
+    Frequency = n / T
+</div>
+
+<div class="formula f8">
+    Wave Function:
+    y = A sin(ωt + φ)
+</div>
+
+<div class="formula f9">
+    Angular Frequency:
+    ω = 2πf
+</div>
+
+<!-- Main Section -->
+
+<div class="main-box">
+
+    <h1>Welcome</h1>
+
+    <div class="welcome-line">
+        ─── ✦ ───
+    </div>
+
+    <!-- Login Container -->
+
+    <div class="container">
+
+        <h2>Topic: Harmonic Analysis (V-lab)</h2>
+
+        <!-- FORM -->
+
+        <form onsubmit="return loginUser()">
+
+            <input type="text"
+            id="username"
+            placeholder="Enter Username"
+            required>
+
+            <input type="email"
+            id="email"
+            placeholder="Enter Login Email"
+            required>
+
+            <button type="submit">
+                Login
+            </button>
+
+        </form>
+
+        <p id="message"></p>
+
+        <div class="footer">
+            ◈ Harmonic Analysis Virtual Laboratory ◈
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+function loginUser(){
+
+    let username =
+    document.getElementById("username").value;
+
+    document.getElementById("message").innerHTML =
+    "✅ Welcome " + username;
+
+    /* Move to Dashboard Page */
+
+    setTimeout(function(){
+
+        window.location.href = "dashboard.html";
+
+    }, 1000);
+
+    return false;
+}
+
+</script>
+</body>
+</html>

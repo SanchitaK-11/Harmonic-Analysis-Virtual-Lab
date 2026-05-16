@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Concepts & Formulas - Harmonic Analysis</title>
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f4f6f9;
+            color:#190718;
+            line-height:1.0;
+        }
+
+        .navbar{
+            background:#2f0836;
+            color:white;
+            padding:20px 40px;
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+        }
+
+        .navbar h1{
+            font-size:28px;
+        }
+
+        .nav-links a{
+            color:white;
+            text-decoration:none;
+            margin-left:20px;
+        }
+
+        .nav-links a:hover{
+            color:orange;
+        }
+
+        .hero{
+            background:linear-gradient(rgba(0,0,0,0.2), rgba(0,0,0,0.6)),
+            url('3499066.jpg');
+
+            background-size:cover;
+            background-position:center;
+            height:350px;
+
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            text-align:center;
+
+            color:white;
+        }
+
+        .hero h2{
+            font-size:50px;
+        }
+
+        .hero p{
+            font-size:20px;
+            margin-top:10px;
+        }
+
+        .container{
+            width:90%;
+            max-width:1200px;
+            margin:40px auto;
+        }
+
+        .section{
+            background:white;
+            padding:30px;
+            margin-bottom:30px;
+            border-radius:12px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.1);
+            transition:0.3s;
+        }
+
+        .section:hover{
+            transform:translateY(-5px);
+        }
+
+        .section h3{
+            color:#8520b4;
+            margin-bottom:15px;
+            font-size:28px;
+        }
+
+        .formula{
+            background:#f8f8f8;
+            padding:15px;
+            border-left:5px solid rgb(145, 26, 181);
+            margin:15px 0;
+            font-size:20px;
+        }
+
+        ul{
+            padding-left:20px;
+        }
+
+        li{
+            margin-bottom:10px;
+        }
+
+        /* Navigation Buttons Styling */
+        .page-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 40px auto 10px auto;
+            width: 90%;
+            max-width: 1200px;
+        }
+
+        .nav-btn {
+            display: inline-block;
+            background: #8520b4;
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: background 0.3s, transform 0.2s;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .nav-btn:hover {
+            background: #2f0836;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+
+        footer{
+            background:#111;
+            color:white;
+            text-align:center;
+            padding:20px;
+            margin-top:40px;
+        }
+
+        @media(max-width:768px){
+
+            .hero h2{
+                font-size:35px;
+            }
+
+            .navbar{
+                flex-direction:column;
+            }
+
+            .nav-links{
+                margin-top:10px;
+            }
+
+            .page-navigation {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 0 10px;
+            }
+            
+            .nav-btn {
+                padding: 10px 20px;
+                font-size: 14px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Navbar -->
+    <div class="navbar">
+
+        <h1>Harmonic Analysis</h1>
+
+        <div class="nav-links">
+            <a href="dashboard.html">Home</a>
+            <a href="examples.html">Examples</a>
+            <a href="applications.html">Applications</a>
+            <a href="quiz.html">Quiz</a>
+        </div>
+
+    </div>
+
+    <!-- Hero Section -->
+    <div class="hero">
+
+        <div>
+            <h2>Concepts & Formulas</h2>
+            <p>Learn the fundamentals of Harmonic Analysis</p>
+        </div>
+
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+
+        <!-- Introduction -->
+        <div class="section">
+
+            <h3>Introduction to Harmonic Analysis</h3>
+
+            <p>
+               
+• Harmonic Analysis is a mathematical technique used to study periodic functions and signals.<br><br>
+
+• It breaks complex waveforms into simple sine and cosine components called harmonics.<br><br>
+
+• It is mainly based on the concept of Fourier Series.<br><br>
+
+• Harmonic analysis is widely used in signal processing, communication systems, sound engineering, and electrical circuits.<br><br>
+
+• It helps in understanding frequency, amplitude, and behavior of periodic signals accurately.
+            </p>
+
+        </div>
+
+        <!-- Periodic Function -->
+        <div class="section">
+
+            <h3>Periodic Function</h3>
+
+            <p>
+                A function is periodic if:
+            </p>
+
+            <div class="formula">
+                f(x + T) = f(x)
+            </div>
+
+            <p>
+                where T is the period of the function.<br><br>
+                T = 2L<br><br>
+                2L = b-a<br><br>
+                Where,<br> b = Last value of x when function becomes periodic.<br>
+                       a = First value of x.<br><br>
+                    
+            </p>
+            
+
+            <ul>
+                <li>sin(x) → period = 2π</li>
+                <li>cos(x) → period = 2π</li>
+                <li>tan(x) → period = π</li>
+            </ul>
+
+        </div>
+
+        <!-- Harmonic Series -->
+        <div class="section">
+
+            <h3>Harmonic Series</h3>
+
+            <div class="formula">
+                f(x) = a₀/2 + Σ (aₙ cos(nπx/L) + bₙ sin(nπx/L))
+            </div>
+
+            <p>
+                Harmonic series expresses a periodic function as a combination
+                of sine and cosine terms.
+            </p>
+
+        </div>
+      
+        <!-- Fourier Coefficients -->
+        <div class="section">
+
+            <h3>Harmonic Coefficients</h3>
+            
+            <p> N = Number of distinct Experiments or Observations.<br><br>
+                n = Number of Harmonic<br><br>
+                a0 → average value of signal<br><br>
+                aₙ → cosine (even) harmonics<br><br>
+                bₙ →sine (odd) harmonics</p><br><br>
+            <div class="formula">
+                a₀ = (2/N) Σ (y)
+            </div>
+
+            <div class="formula">
+                aₙ = (2/N) Σ(y cos(nπx/L))
+            </div>
+
+            <div class="formula">
+                bₙ = (2/N) Σ(y sin(nπx/L))
+            </div>
+
+        </div>
+
+        <!-- Summation Formulas -->
+        <div class="section">
+
+            <h3>Harmonic Interpretation</h3>
+
+            <h4> For first Harmonic,n = 1</h4>
+
+            <div class="formula">
+              f(x) = a₀/2 + a1 cos(πx/L) + b1 sin(πx/L)
+            </div>
+            
+            <h4> Amplitude of first Harmonic</h4>
+
+            <div class="formula">
+             Amp = √(a1​² + b1²)
+            </div>
+
+            <h4> For second Harmonic,n = 2</h4>
+
+            <div class="formula">
+              f(x) = a₀/2 + a1 cos(πx/L) + b1 sin(πx/L) + a2 cos(2πx/L) + b2 sin(2πx/L)
+            </div>
+
+            <h4> Amplitude of second Harmonic</h4>
+
+            <div class="formula">
+             Amp = √(a2² + b2²)
+            </div>
+
+        </div>
+
+        <!-- Key Points -->
+        <div class="section">
+
+            <h3>Key Points</h3>
+
+            <ul>
+                <li>Periodic functions repeat after fixed intervals.</li>
+                <li>Fourier series uses sine and cosine waves.</li>
+                <li>Harmonic analysis is important in signal processing.</li>
+                <li>Cosine terms represent even functions.</li>
+                <li>Sine terms represent odd functions.</li>
+            </ul>
+
+        </div>
+
+    </div>
+
+    <!-- Previous and Next Navigation Buttons -->
+    <div class="page-navigation">
+        <a href="dashboard.html" class="nav-btn">← Previous</a>
+        <a href="examples.html" class="nav-btn">Next →</a>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>© 2026 Harmonic Analysis Learning Platform</p>
+    </footer>
+
+</body>
+</html>

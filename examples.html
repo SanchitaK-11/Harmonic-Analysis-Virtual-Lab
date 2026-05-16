@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fourier Series | 5 Solved Examples</title>
+    <style>
+        /* Modern Layout & Variables */
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        :root {
+            --deep-purple: #2e003e;
+            --main-purple: #4b0082;
+            --accent-purple: #800080;
+            --soft-bg: #f4f4f9;
+        }
+
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: var(--soft-bg); color: #333; line-height: 1.6; }
+
+        /* Navigation */
+        nav { background-color: var(--deep-purple); color: white; display: flex; justify-content: space-between; align-items: center; padding: 15px 2%; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+        .logo { font-size: 1.5rem; font-weight: bold; }
+        .nav-links { list-style: none; display: flex; gap: 25px; }
+        .nav-links a { color: white; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
+        .nav-links a:hover { color: #d1a3ff; }
+
+        /* Hero Header with Wave Overlay */
+        .hero { 
+            background:linear-gradient(rgba(63, 17, 92, 0.5), rgba(110, 26, 114, 0.5)),
+            url('3499066.jpg');
+ 
+            background-size: cover; background-position: center;
+            color: white; padding: 100px 20px; text-align: center; 
+        }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 10px; }
+        .hero p { font-size: 1.2rem; opacity: 0.9; }
+
+        /* Content container */
+        .container { max-width: 1000px; margin: -50px auto 60px; padding: 0 20px; }
+        .section-title { 
+            color: var(--main-purple); background: white; padding: 12px 25px; 
+            display: inline-block; border-left: 8px solid var(--accent-purple); 
+            margin-bottom: 30px; border-radius: 4px; font-weight: bold;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Card Styling */
+        .example-card { background: white; border-radius: 12px; padding: 35px; margin-bottom: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.08); }
+        .example-card h3 { color: var(--main-purple); margin-bottom: 15px; font-size: 1.4rem; }
+
+        /* Data Tables */
+        .table-wrapper { overflow-x: auto; margin: 20px 0; border: 1px solid #eee; border-radius: 8px; }
+        table { width: 100%; border-collapse: collapse; min-width: 600px; }
+        th, td { padding: 14px; border: 1px solid #eee; text-align: center; }
+        th { background-color: #f8f0ff; color: var(--main-purple); }
+
+        /* Multiple Choice Options */
+        .options-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin: 25px 0; }
+        .option { background: #fff; border: 1px solid #ddd; padding: 12px 18px; border-radius: 8px; font-weight: 600; cursor: default; }
+        .correct { background: #e8f5e9; border: 2px solid #48d74f; color: #54de5d; }
+        
+        /* Solution Breakdown */
+        details { background: #fdfaff; border: 1px solid #d1a3ff; border-radius: 8px; padding: 20px; cursor: pointer; }
+        summary { font-weight: bold; color: var(--main-purple); font-size: 1.1rem; }
+        .desc-box { margin-top: 20px; padding-top: 15px; border-top: 1px dashed #d1a3ff; }
+        .step, .math-step { margin-bottom: 15px; }
+        code { color: #a83fdd; font-weight: bold; background: #fff1f1; padding: 2px 6px; border-radius: 4px; font-family: monospace; }
+
+        /* Page Navigation Styles */
+        .page-navigation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1000px;
+            margin: -20px auto 40px auto;
+            padding: 0 20px;
+        }
+
+        .nav-btn {
+            background: var(--main-purple);
+            color: white;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        .nav-btn:hover {
+            background: var(--deep-purple);
+        }
+
+        @media(max-width:768px){
+            .page-navigation {
+                margin-top: 0px;
+            }
+            .nav-btn {
+                padding: 10px 18px;
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="logo">Harmonic Analysis</div>
+        <div class="nav-links">
+            <a href="dashboard.html">Home</a>
+            <a href="formulas.html">Concepts</a>
+            <a href="applications.html">Applications</a>
+            <a href="quiz.html">Quiz</a>
+        </div>
+    </nav>
+
+    <header class="hero">
+        <h1>Harmonic Analysis</h1>
+        <p>Mastering Fourier Coefficients through Tabulated Data</p>
+    </header>
+
+    <div class="container">
+        <div class="section-title">Solved Practice Set</div>
+
+        <!-- EXAMPLE 1 (Q1) -->
+        <div class="example-card">
+            <h3>1. Calculating a₁ (T = 6)</h3>
+            <p>Determine the value of <strong>a₁</strong> for the following tabulated data:</p>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+                    <tr><th>y</th><td>9</td><td>18</td><td>24</td><td>28</td><td>26</td><td>20</td></tr>
+                    <tr><th>cos &pi;x/3</th><td>1</td><td>1/2</td><td>-1/2</td><td>-1</td><td>-1/2</td><td>1/2</td></tr>
+                </table>
+            </div>
+            <div class="options-grid">
+                <div class="option correct">(A) -8.33</div>
+                <div class="option">(B) -7.14</div>
+                <div class="option">(C) -4.16</div>
+                <div class="option">(D) 0</div>
+            </div>
+            <details>
+                <summary>View Step-by-Step Solution</summary>
+                <div class="step"><strong>Formula:</strong> <code>a₁ = (2/N) &Sigma;(y &middot; cos &pi;x/3)</code> where N = 6.</div>
+                <div class="step"><strong>Summation:</strong> <br>
+                    (9 &times; 1) + (18 &times; 0.5) + (24 &times; -0.5) + (28 &times; -1) + (26 &times; -0.5) + (20 &times; 0.5)<br>
+                    = 9 + 9 - 12 - 28 - 13 + 10 = <strong>-25</strong>
+                </div>
+                <div><strong>Final Result:</strong> a₁ = (2/6) &times; -25 = 1/3 &times; -25 = <strong>-8.333</strong></div>
+            </details>
+        </div>
+
+        <!-- EXAMPLE 2 (Q2) -->
+        <div class="example-card">
+            <h3>2. Calculating b₁ (T = &pi;)</h3>
+            <p>Determine the value of <strong>b₁</strong> for the following tabulated data:</p>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>x&deg;</th><td>0</td><td>30</td><td>60</td><td>90</td><td>120</td><td>150</td></tr>
+                    <tr><th>y</th><td>0</td><td>9.2</td><td>14.4</td><td>17.8</td><td>17.3</td><td>11.7</td></tr>
+                    <tr><th>sin 2x</th><td>0</td><td>0.866</td><td>0.866</td><td>0</td><td>-0.866</td><td>-0.866</td></tr>
+                </table>
+            </div>
+            <div class="options-grid">
+                <div class="option">(A) -3.116</div>
+                <div class="option correct">(B) -1.558</div>
+                <div class="option">(C) -4.16</div>
+                <div class="option">(D) -1.336</div>
+            </div>
+            <details>
+               <summary>View Step-by-Step Solution</summary>
+                <div class="step"><strong>Formula:</strong> <code>b₁ = (2/N) &Sigma;(y &middot; sin 2x)</code> where N = 6.</div>
+                <div class="step"><strong>Summation:</strong> (9.2&times;0.866) + (14.4&times;0.866) + (17.3&times;-0.866) + (11.7&times;-0.866) = <strong>-4.6764</strong></div>
+                <div><strong>Final Result:</strong> b₁ = (2/6) &times; -4.6764 = <strong>-1.5588</strong></div>
+            </details>
+        </div>
+
+        <!-- EXAMPLE 3 (Q3) -->
+        <div class="example-card">
+            <h3>3. Calculating a₁ (T = 6)</h3>
+            <p>Determine the value of <strong>a₁</strong> for the following tabulated data:</p>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>x</th><td>0</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td></tr>
+                    <tr><th>y</th><td>4</td><td>8</td><td>15</td><td>7</td><td>6</td><td>2</td></tr>
+                    <tr><th>cos &pi;x/3</th><td>1</td><td>1/2</td><td>-1/2</td><td>-1</td><td>-1/2</td><td>1/2</td></tr>
+                </table>
+            </div>
+            <div class="options-grid">
+                <div class="option correct">(A) -2.83</div>
+                <div class="option">(B) -8.32</div>
+                <div class="option">(C) -3.57</div>
+                <div class="option">(D) -10.98</div>
+            </div>
+            <details>
+               <summary>View Step-by-Step Solution</summary>
+                <div class="step"><strong>Formula:</strong> <code>a₁ = (2/N) &Sigma;(y &middot; cos &pi;x/3)</code> where N = 6.</div>
+                <div class="step"><strong>Summation:</strong> (4&times;1) + (8&times;0.5) - (15&times;0.5) - (7&times;1) - (6&times;0.5) + (2&times;0.5) = <strong>-8.5</strong></div>
+                <div><strong>Final Result:</strong> a₁ = (2/6) &times; -8.5 = <strong>-2.833</strong></div>
+            </details>
+        </div>
+
+        <!-- EXAMPLE 4 (Q4) -->
+        <div class="example-card">
+            <h3>4. Calculating b₁ (T = 2&pi;)</h3>
+            <p>Determine the value of <strong>b₁</strong> for the following tabulated data:</p>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>x&deg;</th><td>0</td><td>60</td><td>120</td><td>180</td><td>240</td><td>300</td></tr>
+                    <tr><th>y</th><td>1.0</td><td>1.4</td><td>1.9</td><td>1.7</td><td>1.5</td><td>1.2</td></tr>
+                    <tr><th>sin x</th><td>0</td><td>0.866</td><td>0.866</td><td>0</td><td>-0.866</td><td>-0.866</td></tr>
+                </table>
+            </div>
+            <div class="options-grid">
+                <div class="option">(A) 0.0989</div>
+                <div class="option">(B) 0.3464</div>
+                <div class="option correct">(C) 0.1732</div>
+                <div class="option">(D) 0.6932</div>
+            </div>
+            <details>
+                <summary>View Step-by-Step Solution</summary>
+                <div class="step"><strong>Formula:</strong> <code>b₁ = (2/N) &Sigma;(y &middot; sin x)</code> where N = 6.</div>
+                <div class="step"><strong>Summation:</strong> (1.4&times;0.866) + (1.9&times;0.866) - (1.5&times;0.866) - (1.2&times;0.866) = <strong>0.5196</strong></div>
+                <div><strong>Final Result:</strong> b₁ = (2/6) &times; 0.5196 = <strong>0.1732</strong></div>
+            </details>
+        </div>
+
+        <!-- EXAMPLE 5 -->
+        <div class="example-card">
+            <h3>Example 5. Comprehensive Analysis</h3>
+            <p>Find the first harmonic coefficients for the following data (Period = 2&pi;):</p>
+            <div class="table-wrapper">
+                <table>
+                    <tr><th>x (rad)</th><td>0</td><td>&pi;/3</td><td>2&pi;/3</td><td>&pi;</td><td>4&pi;/3</td><td>5&pi;/3</td></tr>
+                    <tr><th>y</th><td>1.98</td><td>1.30</td><td>1.05</td><td>1.30</td><td>-0.88</td><td>-0.25</td></tr>
+                </table>
+            </div>
+            <div class="options-grid">
+                <div class="option">a₁ = 0.5</div>
+                <div class="option correct">a₁ = 0.373, b₁ = 1.004</div>
+                <div class="option">b₁ = 0.85</div>
+                <div class="option">None of these</div>
+            </div>
+            <details>
+              <summary>View Description & Solution</summary>
+                <div class="desc-box">
+                    <div class="math-step"><strong>Step 1: Identify Parameters</strong><br>
+                        Number of intervals (N) = 6. Step interval = 60° (&pi;/3 radians).<br>
+                        Multipliers for <code>a₁</code> are <code>cos(x)</code>: <code>[1, 0.5, -0.5, -1, -0.5, 0.5]</code>.<br>
+                        Multipliers for <code>b₁</code> are <code>sin(x)</code>: <code>[0, 0.866, 0.866, 0, -0.866, -0.866]</code>.
+                    </div>
+                    
+                    <div class="math-step"><strong>Step 2: Detailed a₁ Calculation [ &Sigma;(y &middot; cos x) ]</strong><br>
+                        • x = 0: 1.98 &times; 1.0 = 1.98<br>
+                        • x = &pi;/3: 1.30 &times; 0.5 = 0.65<br>
+                        • x = 2&pi;/3: 1.05 &times; (-0.5) = -0.525<br>
+                        • x = &pi;: 1.30 &times; (-1.0) = -1.30<br>
+                        • x = 4&pi;/3: -0.88 &times; (-0.5) = 0.44<br>
+                        • x = 5&pi;/3: -0.25 &times; 0.5 = -0.125<br>
+                        <strong>Summation &Sigma; = 1.98 + 0.65 - 0.525 - 1.30 + 0.44 - 0.125 = 1.12</strong><br>
+                        <code>a₁ = (2/6) &times; 1.12 = 1.12 / 3 = 0.3733</code>
+                    </div>
+                    
+                    <div class="math-step"><strong>Step 3: Detailed b₁ Calculation [ &Sigma;(y &middot; sin x) ]</strong><br>
+                        • x = 0: 1.98 &times; 0 = 0<br>
+                        • x = &pi;/3: 1.30 &times; 0.866 = 1.1258<br>
+                        • x = 2&pi;/3: 1.05 &times; 0.866 = 0.9093<br>
+                        • x = &pi;: 1.30 &times; 0 = 0<br>
+                        • x = 4&pi;/3: -0.88 &times; (-0.866) = 0.7621<br>
+                        • x = 5&pi;/3: -0.25 &times; (-0.866) = 0.2165<br>
+                        <strong>Summation &Sigma; = 0 + 1.1258 + 0.9093 + 0 + 0.7621 + 0.2165 = 3.0137</strong><br>
+                        <code>b₁ = (2/6) &times; 3.0137 = 3.0137 / 3 = 1.0046</code>
+                    </div>
+                </div>
+            </details>
+        </div>
+
+    </div>
+
+    <!-- Page Navigation Section -->
+    <div class="page-navigation">
+        <a href="formulas.html" class="nav-btn">← Previous</a>
+        <a href="applications.html" class="nav-btn">Next →</a>
+    </div>
+
+</body>
+</html>
